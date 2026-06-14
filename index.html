@@ -13,7 +13,7 @@
     --hair:#e6ece2; --hero1:#f3f6ef; --ridge1:#dde5da; --ridge2:#c7d2c4;
     --pill-bg:rgba(255,255,255,.78); --nav-bg:rgba(238,241,234,.88); --soft-bg:rgba(255,255,255,.6);
     --btn-bg:#f6f9f3; --btn-bg-hover:#eef2e8; --ctl-bg:rgba(255,255,255,.78);
-    --radius:18px; --shadow:0 1px 2px rgba(22,36,29,.06),0 10px 26px rgba(22,36,29,.07); --tap:48px;
+    --radius:18px; --shadow:0 1px 2px rgba(22,36,29,.06),0 10px 26px rgba(22,36,29,.07); --tap:44px;
   }
   :root[data-theme="dark"]{
     --mist:#101713; --paper:#1a241e; --ink:#e9efe9; --ink-soft:#a3b1a8;
@@ -67,14 +67,15 @@
   .daytoggle:focus-visible{outline:3px solid var(--river);outline-offset:2px}
 
   .stay{margin:18px 0 4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow)}
-  .stay b{color:var(--pine-deep);font-size:1.08rem} .stay .row{font-size:.88rem;color:var(--ink-soft);margin-top:4px}
+  .stay-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .stay-head b{color:var(--pine-deep);font-size:1.08rem} .stay .row{font-size:.88rem;color:var(--ink-soft);margin-top:4px}
 
   main{margin-top:18px}
   .banner{margin:0 0 16px;font-size:.86rem;font-weight:700;color:var(--maple);background:rgba(168,71,31,.08);
     border:1px solid rgba(168,71,31,.28);border-radius:12px;padding:11px 14px;line-height:1.55}
   .legend{margin:0 0 22px;font-size:.86rem;color:var(--ink-soft);background:var(--soft-bg);
     border:1px dashed var(--line);border-radius:14px;padding:13px 15px;line-height:1.65}
-  .legend b{color:var(--maple)}
+  .legend b{color:var(--river)}
   .trail{position:relative;padding-left:30px}
   .trail::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;
     background:repeating-linear-gradient(var(--line) 0 6px, transparent 6px 12px)}
@@ -92,20 +93,20 @@
   .tag.act{background:var(--river)} .tag.meal{background:var(--pine)} .tag.cafe{background:#8a6d3a}
   .slot .slot-label{font-size:.86rem;color:var(--ink-soft);font-weight:700}
   .pick{margin:0;padding:0;list-style:none}
-  .pick > li{padding:14px 0;border-top:1px solid var(--hair)}
+  .pick > li{padding:13px 0;border-top:1px solid var(--hair)}
   .pick > li:first-child{border-top:0;padding-top:2px}
-  .place-name{font-size:1.08rem;font-weight:800;letter-spacing:-.01em}
-  .place-note{font-size:.9rem;color:var(--ink-soft);margin-top:3px;line-height:1.6}
+  .place-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .place-name{font-size:1.08rem;font-weight:800;letter-spacing:-.01em;flex:1 1 auto;min-width:0}
+  .place-note{font-size:.9rem;color:var(--ink-soft);margin-top:4px;line-height:1.6}
   .warn{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--maple);
     background:rgba(168,71,31,.09);border:1px solid rgba(168,71,31,.28);border-radius:9px;padding:4px 10px}
-  .maplinks{margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
-  a.mlink{text-decoration:none;font-size:.9rem;font-weight:800;min-height:var(--tap);border-radius:12px;
-    border:1px solid var(--line);background:var(--btn-bg);color:var(--ink);display:flex;align-items:center;
-    justify-content:center;gap:7px;transition:transform .08s,background .15s}
-  a.mlink .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
-  a.mlink.n .dot{background:#03c75a} a.mlink.k .dot{background:#fae100;border:1px solid #c9b400}
-  a.mlink:hover{background:var(--btn-bg-hover)} a.mlink:active{transform:scale(.98)}
+  a.mlink{flex:0 0 auto;text-decoration:none;font-size:.82rem;font-weight:800;min-height:40px;padding:7px 13px;
+    border-radius:10px;border:1px solid var(--line);background:var(--btn-bg);color:var(--ink);
+    display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:transform .08s,background .15s}
+  a.mlink .dot{width:9px;height:9px;border-radius:50%;background:#03c75a;flex:0 0 auto}
+  a.mlink:hover{background:var(--btn-bg-hover)} a.mlink:active{transform:scale(.97)}
   a.mlink:focus-visible{outline:3px solid var(--river);outline-offset:2px}
+  .stay-head a.mlink{min-height:var(--tap)}
 
   footer{margin-top:30px;text-align:center;font-size:.8rem;color:var(--ink-soft);line-height:1.7}
   footer .tips{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow);margin-bottom:16px}
@@ -152,7 +153,7 @@
     <div class="banner hidden" id="todayBanner"></div>
     <div class="legend">
       숙소만 영춘면 산속(시내에서 차로 약 40분)이라, <b>시내 나갈 때 활동·식사·카페를 한 번에</b> 묶는 게 편합니다.
-      각 장소의 <b style="color:var(--river)">네이버지도</b>·<b style="color:#9a7b1f">카카오맵</b> 버튼을 누르면 길찾기로 바로 연결돼요.
+      장소 이름 옆 <b>네이버지도</b> 버튼을 누르면 길찾기로 바로 연결돼요.
     </div>
     <div class="trail" id="trail"></div>
   </main>
@@ -166,14 +167,14 @@
         <li>정기휴무는 가게별로 바뀔 수 있으니 방문 전 전화가 가장 확실</li>
       </ul>
     </div>
-    소백산자연휴양림 2박3일 · 개인 여행 일정<br/>지도 링크: 네이버지도 · 카카오맵
+    소백산자연휴양림 2박3일 · 개인 여행 일정<br/>지도 링크: 네이버지도
   </footer>
 </div>
 
 <script>
 function naver(q){ return "https://map.naver.com/p/search/" + encodeURIComponent(q); }
-function kakao(q){ return "https://map.kakao.com/?q=" + encodeURIComponent(q); }
 function localISO(d){ var z=new Date(d.getTime()-d.getTimezoneOffset()*60000); return z.toISOString().slice(0,10); }
+function mlink(q){ return '<a class="mlink" href="'+naver(q)+'" target="_blank" rel="noopener"><span class="dot"></span>네이버지도</a>'; }
 
 var stay = { name:"소백산자연휴양림", query:"소백산자연휴양림",
   addr:"충북 단양군 영춘면 하리방터길 180 · ☎ 043-423-3117",
@@ -226,17 +227,11 @@ var closures = {
   "단양흑마늘쌈밥":"목요일 휴무 — Day 2엔 제외"
 };
 
-function mlinks(q){
-  return '<div class="maplinks">'
-    + '<a class="mlink n" href="'+naver(q)+'" target="_blank" rel="noopener"><span class="dot"></span>네이버지도</a>'
-    + '<a class="mlink k" href="'+kakao(q)+'" target="_blank" rel="noopener"><span class="dot"></span>카카오맵</a>'
-    + '</div>';
-}
-
 var links=[], sections=[];
 (function(){
   document.getElementById('stay').innerHTML =
-    '<div><b>🏡 '+stay.name+'</b></div><div class="row">'+stay.addr+'</div><div class="row">'+stay.info+'</div>'+mlinks(stay.query);
+    '<div class="stay-head"><b>🏡 '+stay.name+'</b>'+mlink(stay.query)+'</div>'
+    + '<div class="row">'+stay.addr+'</div><div class="row">'+stay.info+'</div>';
 
   var nav=document.getElementById('daynav'), trail=document.getElementById('trail'), toggle=document.getElementById('onlyToday');
 
@@ -245,7 +240,7 @@ var links=[], sections=[];
     var a=document.createElement('a');
     a.href='#'+id; a.dataset.target=id;
     a.innerHTML=d.num+' <small>'+d.date.replace(/[()]/g,'')+'</small>';
-    nav.insertBefore(a, toggle);     // 토글은 항상 맨 뒤
+    nav.insertBefore(a, toggle);
     links.push(a);
 
     var el=document.createElement('section'); el.className='day'; el.id=id; el.dataset.iso=d.iso;
@@ -254,8 +249,9 @@ var links=[], sections=[];
       html+='<div class="card"><div class="slot"><span class="tag '+b.tag+'">'
         +(b.tag==='act'?'활동':b.tag==='cafe'?'카페':'식사')+'</span><span class="slot-label">'+b.label+'</span></div><ul class="pick">';
       b.picks.forEach(function(p){
-        html+='<li><div class="place-name">'+p.name+'</div><div class="place-note">'+p.note+'</div>'
-          +(closures[p.name]?'<span class="warn">⚠ '+closures[p.name]+'</span>':'')+mlinks(p.q)+'</li>';
+        html+='<li><div class="place-head"><span class="place-name">'+p.name+'</span>'+mlink(p.q)+'</div>'
+          +'<div class="place-note">'+p.note+'</div>'
+          +(closures[p.name]?'<span class="warn">⚠ '+closures[p.name]+'</span>':'')+'</li>';
       });
       html+='</ul></div>';
     });
@@ -270,7 +266,6 @@ var links=[], sections=[];
   }
   setActive('day1');
 
-  /* ---- 오늘 일정만 보기 ---- */
   var only=false, banner=document.getElementById('todayBanner');
   function apply(){
     if(!only){
@@ -297,7 +292,6 @@ var links=[], sections=[];
   }
   toggle.addEventListener('click', function(){ only=!only; apply(); });
 
-  /* ---- 다크 모드 ---- */
   var themeBtn=document.getElementById('theme'), root=document.documentElement, meta=document.querySelector('meta[name=theme-color]');
   function setTheme(tm){
     root.setAttribute('data-theme',tm);
@@ -309,9 +303,7 @@ var links=[], sections=[];
   var saved=null; try{ saved=localStorage.getItem('sbs-theme'); }catch(e){}
   var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
   setTheme(saved || (prefersDark ? 'dark' : 'light'));
-  themeBtn.addEventListener('click', function(){
-    setTheme(root.getAttribute('data-theme')==='dark' ? 'light' : 'dark');
-  });
+  themeBtn.addEventListener('click', function(){ setTheme(root.getAttribute('data-theme')==='dark' ? 'light' : 'dark'); });
 })();
 </script>
 </body>
