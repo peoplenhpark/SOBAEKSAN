@@ -1,4 +1,4 @@
-# 소백산자연휴양림 일정
+# 소백산자연휴양림 2박 3일 힐링 일정
 
 충북 단양 **소백산자연휴양림**을 베이스로 한 2박 3일(6/17 수 ~ 6/19 금) 휴식 여행 일정 웹앱입니다.
 모든 장소에 **네이버지도 · 카카오맵** 원탭 링크가 있어 휴대폰에서 길찾기로 바로 연결됩니다.
@@ -8,7 +8,7 @@
 
 ### GitHub Pages 배포 (선택)
 저장소 **Settings → Pages → Branch: main / root** 선택 후 저장하면
-`https://peoplenhpark.github.io/SOBACKSAN/` 에서 접속됩니다.
+`https://peoplenhpark.github.io/SOBAEKSAN/` 에서 접속됩니다.
 
 ## 구성
 - Day 1 — 도착 & 단양강 잔도 산책

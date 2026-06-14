@@ -2,144 +2,123 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#2f5d4a" />
 <title>소백산자연휴양림 2박3일 · 힐링 일정</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
   :root{
-    --mist:#eef1ea;        /* 산안개 배경 */
-    --paper:#ffffff;       /* 카드 */
-    --ink:#1b2a23;         /* 깊은 솔잎 먹색 */
-    --ink-soft:#54635b;    /* 보조 텍스트 */
-    --pine:#2f5d4a;        /* 메인 그린 */
+    --mist:#eef1ea;
+    --paper:#ffffff;
+    --ink:#16241d;
+    --ink-soft:#475750;     /* 가독성 위해 대비 높임 */
+    --pine:#2f5d4a;
     --pine-deep:#21513e;
-    --river:#3a6b8a;       /* 남한강 블루 (지도 링크) */
-    --maple:#b5542f;       /* 단풍 (휴무 경고) */
-    --line:#cdd6cc;        /* 자락길 트레일 라인 */
-    --chip:#e7ecdf;
-    --radius:16px;
-    --shadow:0 1px 2px rgba(27,42,35,.06),0 8px 24px rgba(27,42,35,.06);
+    --river:#356388;
+    --maple:#a8471f;
+    --line:#cdd6cc;
+    --radius:18px;
+    --shadow:0 1px 2px rgba(22,36,29,.06),0 10px 26px rgba(22,36,29,.07);
+    --tap:48px;             /* 최소 터치 영역 */
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
+  html{font-size:17px;-webkit-text-size-adjust:100%}
   body{
+    margin:0;
     font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-    background:var(--mist);
-    color:var(--ink);
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
+    background:var(--mist);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+    word-break:keep-all;
   }
-  .wrap{max-width:600px;margin:0 auto;padding:0 18px 64px}
+  .wrap{max-width:620px;margin:0 auto;padding:0 16px calc(72px + env(safe-area-inset-bottom))}
 
   /* ===== Hero ===== */
   header.hero{
-    position:relative;
-    padding:40px 18px 30px;
-    background:
-      radial-gradient(120% 90% at 80% -10%, rgba(58,107,138,.12), transparent 60%),
-      linear-gradient(180deg,#f3f6ef 0%, var(--mist) 100%);
-    border-bottom:1px solid var(--line);
-    overflow:hidden;
+    position:relative;padding:calc(34px + env(safe-area-inset-top)) 18px 30px;
+    background:radial-gradient(120% 90% at 82% -10%, rgba(53,99,136,.13), transparent 60%),
+               linear-gradient(180deg,#f3f6ef 0%, var(--mist) 100%);
+    border-bottom:1px solid var(--line);overflow:hidden;
   }
-  /* 산능선 실루엣 */
-  header.hero svg.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:64px;display:block}
-  .hero-inner{max-width:600px;margin:0 auto}
-  .eyebrow{
-    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--pine);font-weight:700;margin:0 0 10px;
-  }
-  h1{
-    font-size:30px;line-height:1.2;font-weight:800;margin:0 0 8px;letter-spacing:-.02em;
-  }
-  h1 .sub{display:block;font-size:15px;font-weight:600;color:var(--ink-soft);letter-spacing:0;margin-top:6px}
-  .meta{
-    margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;
-  }
-  .meta .pill{
-    background:rgba(255,255,255,.7);border:1px solid var(--line);
-    border-radius:999px;padding:5px 11px;font-size:12.5px;color:var(--ink-soft);font-weight:600;
-  }
-  .stay{
-    margin:16px auto 0;max-width:600px;background:var(--paper);border:1px solid var(--line);
-    border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);
-  }
-  .stay b{color:var(--pine-deep)}
-  .stay .row{font-size:13.5px;color:var(--ink-soft);margin-top:3px}
-  .stay .links{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  header.hero svg.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:60px;display:block}
+  .hero-inner{max-width:620px;margin:0 auto}
+  .eyebrow{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--pine);font-weight:800;margin:0 0 10px}
+  h1{font-size:1.95rem;line-height:1.22;font-weight:800;margin:0;letter-spacing:-.02em}
+  h1 .sub{display:block;font-size:.95rem;font-weight:600;color:var(--ink-soft);letter-spacing:0;margin-top:8px}
+  .meta{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+  .meta .pill{background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.8rem;color:var(--ink-soft);font-weight:700}
+
+  /* ===== 날짜 바로가기 (sticky) ===== */
+  nav.daynav{position:sticky;top:0;z-index:20;background:rgba(238,241,234,.86);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .daynav-inner{max-width:620px;margin:0 auto;display:flex;gap:8px;padding:9px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .daynav a{flex:1 1 0;min-width:max-content;text-align:center;text-decoration:none;
+    font-size:.84rem;font-weight:800;color:var(--ink-soft);background:var(--paper);
+    border:1px solid var(--line);border-radius:12px;padding:9px 10px;min-height:42px;display:flex;
+    align-items:center;justify-content:center;gap:6px;transition:background .15s,color .15s,border-color .15s}
+  .daynav a small{font-weight:600;color:#8a968f}
+  .daynav a.active{background:var(--pine);color:#fff;border-color:var(--pine)}
+  .daynav a.active small{color:#cfe3d8}
+
+  /* ===== 숙소 ===== */
+  .stay{margin:18px 0 4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow)}
+  .stay b{color:var(--pine-deep);font-size:1.08rem}
+  .stay .row{font-size:.88rem;color:var(--ink-soft);margin-top:4px}
 
   /* ===== Trail / Days ===== */
-  main{position:relative;margin-top:26px}
+  main{margin-top:18px}
+  .legend{margin:0 0 22px;font-size:.86rem;color:var(--ink-soft);background:rgba(255,255,255,.6);
+    border:1px dashed var(--line);border-radius:14px;padding:13px 15px;line-height:1.65}
+  .legend b{color:var(--maple)}
   .trail{position:relative;padding-left:30px}
-  .trail::before{
-    content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;
-    background:repeating-linear-gradient(var(--line) 0 6px, transparent 6px 12px);
-  }
-  .day{position:relative;margin:0 0 30px}
+  .trail::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;
+    background:repeating-linear-gradient(var(--line) 0 6px, transparent 6px 12px)}
+  .day{position:relative;margin:0 0 34px;scroll-margin-top:70px}
   .day-head{position:relative;margin:0 0 14px}
-  .day-head::before{ /* 트레일 노드 */
-    content:"";position:absolute;left:-30px;top:4px;width:20px;height:20px;border-radius:50%;
-    background:var(--pine);border:4px solid var(--mist);box-shadow:0 0 0 1px var(--line);
-  }
-  .day-num{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--pine);text-transform:uppercase}
-  .day-title{font-size:19px;font-weight:800;margin:2px 0 0;letter-spacing:-.01em}
-  .day-date{font-size:13px;color:var(--ink-soft);font-weight:600}
+  .day-head::before{content:"";position:absolute;left:-30px;top:3px;width:22px;height:22px;border-radius:50%;
+    background:var(--pine);border:4px solid var(--mist);box-shadow:0 0 0 1px var(--line)}
+  .day-num{font-size:.76rem;font-weight:800;letter-spacing:.14em;color:var(--pine);text-transform:uppercase}
+  .day-title{font-size:1.32rem;font-weight:800;margin:2px 0 0;letter-spacing:-.01em}
+  .day-date{font-size:.86rem;color:var(--ink-soft);font-weight:700}
 
-  .card{
-    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
-    padding:14px 15px;margin:0 0 11px;box-shadow:var(--shadow);
-  }
-  .slot{display:flex;align-items:center;gap:8px;margin:0 0 9px}
-  .tag{
-    font-size:11.5px;font-weight:800;letter-spacing:.04em;padding:3px 9px;border-radius:999px;
-    color:#fff;white-space:nowrap;
-  }
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 16px 14px;margin:0 0 13px;box-shadow:var(--shadow)}
+  .slot{display:flex;align-items:center;gap:9px;margin:0 0 10px}
+  .tag{font-size:.74rem;font-weight:800;letter-spacing:.03em;padding:4px 11px;border-radius:999px;color:#fff;white-space:nowrap}
   .tag.act{background:var(--river)}
   .tag.meal{background:var(--pine)}
   .tag.cafe{background:#8a6d3a}
-  .slot .slot-label{font-size:13px;color:var(--ink-soft);font-weight:600}
+  .slot .slot-label{font-size:.86rem;color:var(--ink-soft);font-weight:700}
   .pick{margin:0;padding:0;list-style:none}
-  .pick > li{padding:9px 0;border-top:1px dashed var(--line)}
+  .pick > li{padding:14px 0;border-top:1px solid #e6ece2}
   .pick > li:first-child{border-top:0;padding-top:2px}
-  .place-name{font-size:15.5px;font-weight:700}
-  .place-note{font-size:12.5px;color:var(--ink-soft);margin-top:1px}
-  .warn{
-    display:inline-block;margin-top:5px;font-size:11.5px;font-weight:700;color:var(--maple);
-    background:rgba(181,84,47,.09);border:1px solid rgba(181,84,47,.25);border-radius:8px;padding:2px 8px;
-  }
-  .maplinks{margin-top:8px;display:flex;gap:7px}
-  a.mlink{
-    flex:0 0 auto;text-decoration:none;font-size:12px;font-weight:700;
-    padding:6px 12px;border-radius:9px;border:1px solid var(--line);background:#f7f9f4;color:var(--ink);
-    display:inline-flex;align-items:center;gap:5px;transition:transform .08s ease,background .15s ease;
-  }
-  a.mlink .dot{width:7px;height:7px;border-radius:50%}
-  a.mlink.n .dot{background:#03c75a}   /* 네이버 그린 */
-  a.mlink.k .dot{background:#fae100;border:1px solid #c9b400} /* 카카오 옐로 */
+  .place-name{font-size:1.08rem;font-weight:800;letter-spacing:-.01em}
+  .place-note{font-size:.9rem;color:var(--ink-soft);margin-top:3px;line-height:1.6}
+  .warn{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--maple);
+    background:rgba(168,71,31,.09);border:1px solid rgba(168,71,31,.28);border-radius:9px;padding:4px 10px}
+  .maplinks{margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  a.mlink{text-decoration:none;font-size:.9rem;font-weight:800;min-height:var(--tap);
+    border-radius:12px;border:1px solid var(--line);background:#f6f9f3;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .08s,background .15s}
+  a.mlink .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  a.mlink.n .dot{background:#03c75a}
+  a.mlink.k .dot{background:#fae100;border:1px solid #c9b400}
   a.mlink:hover{background:#eef2e8}
-  a.mlink:active{transform:scale(.97)}
-  a.mlink:focus-visible{outline:2px solid var(--river);outline-offset:2px}
+  a.mlink:active{transform:scale(.98)}
+  a.mlink:focus-visible{outline:3px solid var(--river);outline-offset:2px}
 
-  /* big stay buttons reuse mlink */
-  .legend{
-    margin:0 0 22px;font-size:12.5px;color:var(--ink-soft);
-    background:rgba(255,255,255,.55);border:1px dashed var(--line);border-radius:12px;padding:11px 13px;
-  }
-  .legend b{color:var(--maple)}
-  footer{
-    margin-top:30px;text-align:center;font-size:12px;color:var(--ink-soft);line-height:1.7;
-  }
-  footer .tips{
-    text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
-    padding:14px 16px;box-shadow:var(--shadow);margin-bottom:16px;
-  }
-  footer .tips h3{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);margin:0 0 8px}
-  footer .tips li{margin:5px 0;color:var(--ink)}
+  footer{margin-top:30px;text-align:center;font-size:.8rem;color:var(--ink-soft);line-height:1.7}
+  footer .tips{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow);margin-bottom:16px}
+  footer .tips h3{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);margin:0 0 9px}
+  footer .tips ul{margin:0;padding-left:18px;font-size:.9rem;line-height:1.7}
+  footer .tips li{margin:6px 0;color:var(--ink)}
 
+  @media (max-width:380px){
+    html{font-size:16px}
+    h1{font-size:1.7rem}
+    .maplinks{gap:8px}
+  }
   @media (prefers-reduced-motion:no-preference){
     .day{opacity:0;transform:translateY(10px);animation:rise .5s ease forwards}
-    .day:nth-child(2){animation-delay:.05s}
-    .day:nth-child(3){animation-delay:.12s}
-    .day:nth-child(4){animation-delay:.19s}
+    .day:nth-child(2){animation-delay:.06s}
+    .day:nth-child(3){animation-delay:.13s}
     @keyframes rise{to{opacity:1;transform:none}}
   }
 </style>
@@ -157,11 +136,15 @@
       <span class="pill">아점 · 저녁 외식</span>
     </div>
   </div>
-  <svg class="ridge" viewBox="0 0 600 64" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,64 L0,40 L70,22 L130,38 L210,10 L300,34 L380,16 L470,36 L540,20 L600,38 L600,64 Z" fill="#dde5da"/>
-    <path d="M0,64 L0,50 L90,34 L180,48 L270,30 L360,46 L450,32 L540,46 L600,34 L600,64 Z" fill="#c7d2c4"/>
+  <svg class="ridge" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,60 L0,38 L70,20 L130,36 L210,9 L300,32 L380,15 L470,34 L540,19 L600,36 L600,60 Z" fill="#dde5da"/>
+    <path d="M0,60 L0,48 L90,32 L180,46 L270,28 L360,44 L450,30 L540,44 L600,32 L600,60 Z" fill="#c7d2c4"/>
   </svg>
 </header>
+
+<nav class="daynav" aria-label="날짜 바로가기">
+  <div class="daynav-inner" id="daynav"></div>
+</nav>
 
 <div class="wrap">
   <div class="stay" id="stay"></div>
@@ -177,7 +160,7 @@
   <footer>
     <div class="tips">
       <h3>챙길 것 · 팁</h3>
-      <ul style="margin:0;padding-left:18px;font-size:13px">
+      <ul>
         <li>입실 15:00 / 퇴실 11:00 — 예약 동에 따라 다를 수 있어 전화 확인</li>
         <li>6월 중순 장마 초입 가능 — 출발 전 예보 확인, 얇은 긴팔 한 벌</li>
         <li>산길 운전 구간 — 주간 이동 권장</li>
@@ -189,87 +172,62 @@
 </div>
 
 <script>
-/* ---- 지도 링크 생성 (국내 앱: 네이버지도 / 카카오맵 검색) ---- */
 function naver(q){ return "https://map.naver.com/p/search/" + encodeURIComponent(q); }
 function kakao(q){ return "https://map.kakao.com/?q=" + encodeURIComponent(q); }
 
-/* ---- 숙소 ---- */
 var stay = {
-  name:"소백산자연휴양림",
-  query:"소백산자연휴양림",
+  name:"소백산자연휴양림", query:"소백산자연휴양림",
   addr:"충북 단양군 영춘면 하리방터길 180 · ☎ 043-423-3117",
   info:"입실 15:00 / 퇴실 11:00 · 성수 11시 출발 · 6/19 소백산 10시 출발"
 };
 
-/* ---- 일정 데이터 ---- */
 var days = [
-  {
-    num:"Day 1", date:"6/17 (수)", title:"도착 & 강변 산책",
-    blocks:[
-      { tag:"act", label:"활동", picks:[
-        { name:"단양강 잔도", q:"단양강 잔도", note:"강변 절벽을 따라 난 평지 데크길(약 1.1km). 무리 없는 힐링 산책" }
-      ]},
-      { tag:"meal", label:"아점 · 택1", picks:[
-        { name:"단양흑마늘쌈밥", q:"단양흑마늘쌈밥", note:"흑마늘 수육쌈밥 (블루리본) · 11–15/16:30–20" },
-        { name:"백마식당", q:"단양 백마식당", note:"마늘제육·더덕정식·청국장 백반 · 매일 9–21" },
-        { name:"냉천막국수", q:"단양 냉천막국수", note:"육회/물막국수·탕수육 · 매일 10:30–21" }
-      ]},
-      { tag:"cafe", label:"카페 · 택1", picks:[
-        { name:"Cafe 2427", q:"단양 카페 2427", note:"브런치·샌드위치·핸드드립" },
-        { name:"Kapedan (카페단)", q:"단양 카페단", note:"자몽에이드·딸기케이크" }
-      ]},
-      { tag:"meal", label:"저녁 · 택1", picks:[
-        { name:"금강식당", q:"단양 구인사 금강식당", note:"구인사 앞 더덕·산채정식 · 휴양림 15분 · 9–18(마감 유의)" },
-        { name:"해성한식", q:"단양 영춘 해성한식", note:"곤드레정식 · 휴양림 근처(영춘) · 매일 10–21" },
-        { name:"영남식당", q:"단양 영남식당", note:"마늘떡갈비·시내 · 8:30–20" }
-      ]}
-    ]
-  },
-  {
-    num:"Day 2", date:"6/18 (목)", title:"전통시장 나들이",
-    blocks:[
-      { tag:"act", label:"활동", picks:[
-        { name:"단양구경시장", q:"단양구경시장", note:"마늘순대·흑마늘 닭강정·만두 군것질하며 시장 구경 · 08–20" }
-      ]},
-      { tag:"meal", label:"아점 · 택1", picks:[
-        { name:"가연", q:"단양 가연 마늘떡갈비", note:"마늘떡갈비특선 + 곤드레돌솥 · 11–15/17–21" },
-        { name:"마누리막국수", q:"단양 마누리막국수", note:"석갈비 + 막국수 · 11–19" },
-        { name:"돌집식당", q:"단양 돌집식당", note:"마늘세트 · 10:30–21" }
-      ]},
-      { tag:"cafe", label:"카페 · 택1", picks:[
-        { name:"Cafe 산 (Sann)", q:"단양 카페산", note:"산정상 뷰 베이커리·패러글라이딩 조망 · 9:30–19" },
-        { name:"구름위의산책", q:"단양 구름위의산책", note:"산중턱 뷰·오미자차 · 11–18:30" }
-      ]},
-      { tag:"meal", label:"저녁 · 택1", picks:[
-        { name:"서울식당", q:"단양 고수동굴 서울식당", note:"마늘찜갈비·떡갈비 · 10–21" },
-        { name:"장다리식당", q:"단양 장다리식당", note:"마늘정식 한 상 · 10–21" },
-        { name:"Bistro River", q:"단양 비스트로리버", note:"파스타·리조또(강뷰) · 분위기 전환 · 매일 10–22" }
-      ]}
-    ]
-  },
-  {
-    num:"Day 3", date:"6/19 (금)", title:"명승 보고 귀경",
-    blocks:[
-      { tag:"act", label:"활동", picks:[
-        { name:"도담삼봉", q:"도담삼봉", note:"남한강 위 세 봉우리. 차에서 5분, 평지·사진 한 장" }
-      ]},
-      { tag:"meal", label:"아점 · 택1 (일찍 여는 곳)", picks:[
-        { name:"영남식당", q:"단양 영남식당", note:"8:30 오픈 · 마늘떡갈비" },
-        { name:"백마식당", q:"단양 백마식당", note:"9시 오픈 · 더덕·제육 백반" },
-        { name:"단양흑마늘쌈밥", q:"단양흑마늘쌈밥", note:"금요일 영업 재개 · 11시 오픈" }
-      ]}
-    ]
-  }
+  { num:"Day 1", date:"6/17 (수)", title:"도착 & 강변 산책", blocks:[
+    { tag:"act", label:"활동", picks:[
+      { name:"단양강 잔도", q:"단양강 잔도", note:"강변 절벽을 따라 난 평지 데크길(약 1.1km). 무리 없는 힐링 산책" } ]},
+    { tag:"meal", label:"아점 · 택1", picks:[
+      { name:"단양흑마늘쌈밥", q:"단양흑마늘쌈밥", note:"흑마늘 수육쌈밥 (블루리본) · 11–15 / 16:30–20" },
+      { name:"백마식당", q:"단양 백마식당", note:"마늘제육 · 더덕정식 · 청국장 백반 · 매일 9–21" },
+      { name:"냉천막국수", q:"단양 냉천막국수", note:"육회 / 물막국수 · 탕수육 · 매일 10:30–21" } ]},
+    { tag:"cafe", label:"카페 · 택1", picks:[
+      { name:"Cafe 2427", q:"단양 카페 2427", note:"브런치 · 샌드위치 · 핸드드립" },
+      { name:"Kapedan (카페단)", q:"단양 카페단", note:"자몽에이드 · 딸기케이크" } ]},
+    { tag:"meal", label:"저녁 · 택1", picks:[
+      { name:"금강식당", q:"단양 구인사 금강식당", note:"구인사 앞 더덕 · 산채정식 · 휴양림 15분 · 9–18(마감 유의)" },
+      { name:"해성한식", q:"단양 영춘 해성한식", note:"곤드레정식 · 휴양림 근처(영춘) · 매일 10–21" },
+      { name:"영남식당", q:"단양 영남식당", note:"마늘떡갈비 · 시내 · 8:30–20" } ]}
+  ]},
+  { num:"Day 2", date:"6/18 (목)", title:"전통시장 나들이", blocks:[
+    { tag:"act", label:"활동", picks:[
+      { name:"단양구경시장", q:"단양구경시장", note:"마늘순대 · 흑마늘 닭강정 · 만두 군것질하며 시장 구경 · 08–20" } ]},
+    { tag:"meal", label:"아점 · 택1", picks:[
+      { name:"가연", q:"단양 가연 마늘떡갈비", note:"마늘떡갈비특선 + 곤드레돌솥 · 11–15 / 17–21" },
+      { name:"마누리막국수", q:"단양 마누리막국수", note:"석갈비 + 막국수 · 11–19" },
+      { name:"돌집식당", q:"단양 돌집식당", note:"마늘세트 · 10:30–21" } ]},
+    { tag:"cafe", label:"카페 · 택1", picks:[
+      { name:"Cafe 산 (Sann)", q:"단양 카페산", note:"산정상 뷰 베이커리 · 패러글라이딩 조망 · 9:30–19" },
+      { name:"구름위의산책", q:"단양 구름위의산책", note:"산중턱 뷰 · 오미자차 · 11–18:30" } ]},
+    { tag:"meal", label:"저녁 · 택1", picks:[
+      { name:"서울식당", q:"단양 고수동굴 서울식당", note:"마늘찜갈비 · 떡갈비 · 10–21" },
+      { name:"장다리식당", q:"단양 장다리식당", note:"마늘정식 한 상 · 10–21" },
+      { name:"Bistro River", q:"단양 비스트로리버", note:"파스타 · 리조또(강뷰) · 분위기 전환 · 매일 10–22" } ]}
+  ]},
+  { num:"Day 3", date:"6/19 (금)", title:"명승 보고 귀경", blocks:[
+    { tag:"act", label:"활동", picks:[
+      { name:"도담삼봉", q:"도담삼봉", note:"남한강 위 세 봉우리. 차에서 5분, 평지 · 사진 한 장" } ]},
+    { tag:"meal", label:"아점 · 택1 (일찍 여는 곳)", picks:[
+      { name:"영남식당", q:"단양 영남식당", note:"8:30 오픈 · 마늘떡갈비" },
+      { name:"백마식당", q:"단양 백마식당", note:"9시 오픈 · 더덕 · 제육 백반" },
+      { name:"단양흑마늘쌈밥", q:"단양흑마늘쌈밥", note:"금요일 영업 재개 · 11시 오픈" } ]}
+  ]}
 ];
 
-/* ---- 요일별 휴무 경고 (수=6/17, 목=6/18) ---- */
 var closures = {
-  "가연":"수요일 휴무 — Day1엔 제외",
-  "마누리막국수":"수요일 휴무 — Day1엔 제외",
-  "단양흑마늘쌈밥":"목요일 휴무 — Day2엔 제외"
+  "가연":"수요일 휴무 — Day 1엔 제외",
+  "마누리막국수":"수요일 휴무 — Day 1엔 제외",
+  "단양흑마늘쌈밥":"목요일 휴무 — Day 2엔 제외"
 };
 
-/* ---- 렌더 ---- */
 function mlinks(q){
   return '<div class="maplinks">'
     + '<a class="mlink n" href="'+naver(q)+'" target="_blank" rel="noopener"><span class="dot"></span>네이버지도</a>'
@@ -278,45 +236,55 @@ function mlinks(q){
 }
 
 (function(){
-  // 숙소
-  var s = document.getElementById('stay');
-  s.innerHTML =
+  document.getElementById('stay').innerHTML =
     '<div><b>🏡 '+stay.name+'</b></div>'
     + '<div class="row">'+stay.addr+'</div>'
     + '<div class="row">'+stay.info+'</div>'
     + mlinks(stay.query);
 
-  // 일정
+  var nav = document.getElementById('daynav');
   var trail = document.getElementById('trail');
-  days.forEach(function(d){
+
+  days.forEach(function(d,i){
+    var id = 'day'+(i+1);
+    var a = document.createElement('a');
+    a.href = '#'+id; a.dataset.target = id;
+    a.innerHTML = d.num.replace('Day ','Day ') + ' <small>'+d.date.replace(/[()]/g,'')+'</small>';
+    nav.appendChild(a);
+
     var el = document.createElement('section');
-    el.className = 'day';
+    el.className = 'day'; el.id = id;
     var html = '<div class="day-head">'
       + '<div class="day-num">'+d.num+'</div>'
       + '<div class="day-title">'+d.title+'</div>'
-      + '<div class="day-date">'+d.date+'</div>'
-      + '</div>';
-
+      + '<div class="day-date">'+d.date+'</div></div>';
     d.blocks.forEach(function(b){
-      html += '<div class="card">';
-      html += '<div class="slot"><span class="tag '+b.tag+'">'
+      html += '<div class="card"><div class="slot"><span class="tag '+b.tag+'">'
         + (b.tag==='act'?'활동':b.tag==='cafe'?'카페':'식사')
-        + '</span><span class="slot-label">'+b.label+'</span></div>';
-      html += '<ul class="pick">';
+        + '</span><span class="slot-label">'+b.label+'</span></div><ul class="pick">';
       b.picks.forEach(function(p){
-        html += '<li>';
-        html += '<div class="place-name">'+p.name+'</div>';
-        html += '<div class="place-note">'+p.note+'</div>';
-        if(closures[p.name]){ html += '<span class="warn">⚠ '+closures[p.name]+'</span>'; }
-        html += mlinks(p.q);
-        html += '</li>';
+        html += '<li><div class="place-name">'+p.name+'</div>'
+          + '<div class="place-note">'+p.note+'</div>'
+          + (closures[p.name] ? '<span class="warn">⚠ '+closures[p.name]+'</span>' : '')
+          + mlinks(p.q) + '</li>';
       });
       html += '</ul></div>';
     });
-
     el.innerHTML = html;
     trail.appendChild(el);
   });
+
+  // 스크롤 위치에 따라 날짜 탭 활성화
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var sections = links.map(function(a){ return document.getElementById(a.dataset.target); });
+  function setActive(id){ links.forEach(function(a){ a.classList.toggle('active', a.dataset.target===id); }); }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting) setActive(e.target.id); });
+    }, { rootMargin:'-45% 0px -50% 0px', threshold:0 });
+    sections.forEach(function(s){ io.observe(s); });
+  }
+  setActive('day1');
 })();
 </script>
 </body>
