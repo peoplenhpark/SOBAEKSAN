@@ -8,64 +8,71 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
   :root{
-    --mist:#eef1ea;
-    --paper:#ffffff;
-    --ink:#16241d;
-    --ink-soft:#475750;     /* 가독성 위해 대비 높임 */
-    --pine:#2f5d4a;
-    --pine-deep:#21513e;
-    --river:#356388;
-    --maple:#a8471f;
-    --line:#cdd6cc;
-    --radius:18px;
-    --shadow:0 1px 2px rgba(22,36,29,.06),0 10px 26px rgba(22,36,29,.07);
-    --tap:48px;             /* 최소 터치 영역 */
+    --mist:#eef1ea; --paper:#ffffff; --ink:#16241d; --ink-soft:#475750;
+    --pine:#2f5d4a; --pine-deep:#21513e; --river:#356388; --maple:#a8471f; --line:#cdd6cc;
+    --hair:#e6ece2; --hero1:#f3f6ef; --ridge1:#dde5da; --ridge2:#c7d2c4;
+    --pill-bg:rgba(255,255,255,.78); --nav-bg:rgba(238,241,234,.88); --soft-bg:rgba(255,255,255,.6);
+    --btn-bg:#f6f9f3; --btn-bg-hover:#eef2e8; --ctl-bg:rgba(255,255,255,.78);
+    --radius:18px; --shadow:0 1px 2px rgba(22,36,29,.06),0 10px 26px rgba(22,36,29,.07); --tap:48px;
+  }
+  :root[data-theme="dark"]{
+    --mist:#101713; --paper:#1a241e; --ink:#e9efe9; --ink-soft:#a3b1a8;
+    --pine:#3f7d63; --pine-deep:#bfe0cf; --river:#6aa3cd; --maple:#e08a64; --line:#2b3830;
+    --hair:#27332c; --hero1:#16201a; --ridge1:#1e2a23; --ridge2:#26342c;
+    --pill-bg:rgba(255,255,255,.06); --nav-bg:rgba(16,23,19,.86); --soft-bg:rgba(255,255,255,.04);
+    --btn-bg:#222e27; --btn-bg-hover:#2a382f; --ctl-bg:rgba(255,255,255,.08);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.5);
   }
   *{box-sizing:border-box}
   html{font-size:17px;-webkit-text-size-adjust:100%}
-  body{
-    margin:0;
-    font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-    background:var(--mist);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
-    word-break:keep-all;
-  }
+  body{margin:0;font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    background:var(--mist);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all;
+    transition:background .25s ease,color .25s ease}
   .wrap{max-width:620px;margin:0 auto;padding:0 16px calc(72px + env(safe-area-inset-bottom))}
+  .hidden{display:none !important}
 
-  /* ===== Hero ===== */
-  header.hero{
-    position:relative;padding:calc(34px + env(safe-area-inset-top)) 18px 30px;
+  header.hero{position:relative;padding:calc(34px + env(safe-area-inset-top)) 18px 30px;
     background:radial-gradient(120% 90% at 82% -10%, rgba(53,99,136,.13), transparent 60%),
-               linear-gradient(180deg,#f3f6ef 0%, var(--mist) 100%);
-    border-bottom:1px solid var(--line);overflow:hidden;
-  }
+               linear-gradient(180deg,var(--hero1) 0%, var(--mist) 100%);
+    border-bottom:1px solid var(--line);overflow:hidden}
   header.hero svg.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:60px;display:block}
-  .hero-inner{max-width:620px;margin:0 auto}
+  svg.ridge .r1{fill:var(--ridge1)} svg.ridge .r2{fill:var(--ridge2)}
+  .hero-inner{max-width:620px;margin:0 auto;position:relative}
   .eyebrow{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--pine);font-weight:800;margin:0 0 10px}
   h1{font-size:1.95rem;line-height:1.22;font-weight:800;margin:0;letter-spacing:-.02em}
   h1 .sub{display:block;font-size:.95rem;font-weight:600;color:var(--ink-soft);letter-spacing:0;margin-top:8px}
   .meta{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px}
-  .meta .pill{background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.8rem;color:var(--ink-soft);font-weight:700}
+  .meta .pill{background:var(--pill-bg);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.8rem;color:var(--ink-soft);font-weight:700}
 
-  /* ===== 날짜 바로가기 (sticky) ===== */
-  nav.daynav{position:sticky;top:0;z-index:20;background:rgba(238,241,234,.86);
+  #theme{position:absolute;top:0;right:0;width:44px;height:44px;border-radius:50%;
+    border:1px solid var(--line);background:var(--ctl-bg);font-size:1.15rem;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center}
+  #theme:focus-visible{outline:3px solid var(--river);outline-offset:2px}
+
+  nav.daynav{position:sticky;top:0;z-index:20;background:var(--nav-bg);
     -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .daynav-inner{max-width:620px;margin:0 auto;display:flex;gap:8px;padding:9px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .daynav a{flex:1 1 0;min-width:max-content;text-align:center;text-decoration:none;
-    font-size:.84rem;font-weight:800;color:var(--ink-soft);background:var(--paper);
-    border:1px solid var(--line);border-radius:12px;padding:9px 10px;min-height:42px;display:flex;
-    align-items:center;justify-content:center;gap:6px;transition:background .15s,color .15s,border-color .15s}
-  .daynav a small{font-weight:600;color:#8a968f}
+  .daynav a{flex:1 1 0;min-width:max-content;text-align:center;text-decoration:none;font-size:.84rem;font-weight:800;
+    color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:9px 10px;
+    min-height:42px;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s,color .15s,border-color .15s}
+  .daynav a small{font-weight:600;color:var(--ink-soft);opacity:.75}
   .daynav a.active{background:var(--pine);color:#fff;border-color:var(--pine)}
-  .daynav a.active small{color:#cfe3d8}
+  .daynav a.active small{color:#dff0e7;opacity:1}
+  .daytoggle{flex:0 0 auto;border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);
+    border-radius:12px;padding:9px 13px;min-height:42px;font-size:.84rem;font-weight:800;cursor:pointer;
+    display:flex;align-items:center;gap:6px;white-space:nowrap}
+  .daytoggle .led{width:9px;height:9px;border-radius:50%;background:var(--line)}
+  .daytoggle.on{background:var(--river);border-color:var(--river);color:#fff}
+  .daytoggle.on .led{background:#fff}
+  .daytoggle:focus-visible{outline:3px solid var(--river);outline-offset:2px}
 
-  /* ===== 숙소 ===== */
   .stay{margin:18px 0 4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow)}
-  .stay b{color:var(--pine-deep);font-size:1.08rem}
-  .stay .row{font-size:.88rem;color:var(--ink-soft);margin-top:4px}
+  .stay b{color:var(--pine-deep);font-size:1.08rem} .stay .row{font-size:.88rem;color:var(--ink-soft);margin-top:4px}
 
-  /* ===== Trail / Days ===== */
   main{margin-top:18px}
-  .legend{margin:0 0 22px;font-size:.86rem;color:var(--ink-soft);background:rgba(255,255,255,.6);
+  .banner{margin:0 0 16px;font-size:.86rem;font-weight:700;color:var(--maple);background:rgba(168,71,31,.08);
+    border:1px solid rgba(168,71,31,.28);border-radius:12px;padding:11px 14px;line-height:1.55}
+  .legend{margin:0 0 22px;font-size:.86rem;color:var(--ink-soft);background:var(--soft-bg);
     border:1px dashed var(--line);border-radius:14px;padding:13px 15px;line-height:1.65}
   .legend b{color:var(--maple)}
   .trail{position:relative;padding-left:30px}
@@ -82,43 +89,33 @@
   .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 16px 14px;margin:0 0 13px;box-shadow:var(--shadow)}
   .slot{display:flex;align-items:center;gap:9px;margin:0 0 10px}
   .tag{font-size:.74rem;font-weight:800;letter-spacing:.03em;padding:4px 11px;border-radius:999px;color:#fff;white-space:nowrap}
-  .tag.act{background:var(--river)}
-  .tag.meal{background:var(--pine)}
-  .tag.cafe{background:#8a6d3a}
+  .tag.act{background:var(--river)} .tag.meal{background:var(--pine)} .tag.cafe{background:#8a6d3a}
   .slot .slot-label{font-size:.86rem;color:var(--ink-soft);font-weight:700}
   .pick{margin:0;padding:0;list-style:none}
-  .pick > li{padding:14px 0;border-top:1px solid #e6ece2}
+  .pick > li{padding:14px 0;border-top:1px solid var(--hair)}
   .pick > li:first-child{border-top:0;padding-top:2px}
   .place-name{font-size:1.08rem;font-weight:800;letter-spacing:-.01em}
   .place-note{font-size:.9rem;color:var(--ink-soft);margin-top:3px;line-height:1.6}
   .warn{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--maple);
     background:rgba(168,71,31,.09);border:1px solid rgba(168,71,31,.28);border-radius:9px;padding:4px 10px}
   .maplinks{margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
-  a.mlink{text-decoration:none;font-size:.9rem;font-weight:800;min-height:var(--tap);
-    border-radius:12px;border:1px solid var(--line);background:#f6f9f3;color:var(--ink);
-    display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .08s,background .15s}
+  a.mlink{text-decoration:none;font-size:.9rem;font-weight:800;min-height:var(--tap);border-radius:12px;
+    border:1px solid var(--line);background:var(--btn-bg);color:var(--ink);display:flex;align-items:center;
+    justify-content:center;gap:7px;transition:transform .08s,background .15s}
   a.mlink .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
-  a.mlink.n .dot{background:#03c75a}
-  a.mlink.k .dot{background:#fae100;border:1px solid #c9b400}
-  a.mlink:hover{background:#eef2e8}
-  a.mlink:active{transform:scale(.98)}
+  a.mlink.n .dot{background:#03c75a} a.mlink.k .dot{background:#fae100;border:1px solid #c9b400}
+  a.mlink:hover{background:var(--btn-bg-hover)} a.mlink:active{transform:scale(.98)}
   a.mlink:focus-visible{outline:3px solid var(--river);outline-offset:2px}
 
   footer{margin-top:30px;text-align:center;font-size:.8rem;color:var(--ink-soft);line-height:1.7}
   footer .tips{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow);margin-bottom:16px}
   footer .tips h3{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);margin:0 0 9px}
-  footer .tips ul{margin:0;padding-left:18px;font-size:.9rem;line-height:1.7}
-  footer .tips li{margin:6px 0;color:var(--ink)}
+  footer .tips ul{margin:0;padding-left:18px;font-size:.9rem;line-height:1.7} footer .tips li{margin:6px 0;color:var(--ink)}
 
-  @media (max-width:380px){
-    html{font-size:16px}
-    h1{font-size:1.7rem}
-    .maplinks{gap:8px}
-  }
+  @media (max-width:380px){ html{font-size:16px} h1{font-size:1.7rem} }
   @media (prefers-reduced-motion:no-preference){
     .day{opacity:0;transform:translateY(10px);animation:rise .5s ease forwards}
-    .day:nth-child(2){animation-delay:.06s}
-    .day:nth-child(3){animation-delay:.13s}
+    .day:nth-child(2){animation-delay:.06s} .day:nth-child(3){animation-delay:.13s}
     @keyframes rise{to{opacity:1;transform:none}}
   }
 </style>
@@ -126,6 +123,7 @@
 <body>
 <header class="hero">
   <div class="hero-inner">
+    <button id="theme" type="button" aria-label="다크 모드로 전환">🌙</button>
     <p class="eyebrow">충북 단양 · 2박 3일 힐링</p>
     <h1>소백산자연휴양림에서 쉬는 사흘
       <span class="sub">숲 · 강 · 시장, 무리 없이 천천히</span>
@@ -137,26 +135,27 @@
     </div>
   </div>
   <svg class="ridge" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,60 L0,38 L70,20 L130,36 L210,9 L300,32 L380,15 L470,34 L540,19 L600,36 L600,60 Z" fill="#dde5da"/>
-    <path d="M0,60 L0,48 L90,32 L180,46 L270,28 L360,44 L450,30 L540,44 L600,32 L600,60 Z" fill="#c7d2c4"/>
+    <path class="r1" d="M0,60 L0,38 L70,20 L130,36 L210,9 L300,32 L380,15 L470,34 L540,19 L600,36 L600,60 Z"/>
+    <path class="r2" d="M0,60 L0,48 L90,32 L180,46 L270,28 L360,44 L450,30 L540,44 L600,32 L600,60 Z"/>
   </svg>
 </header>
 
 <nav class="daynav" aria-label="날짜 바로가기">
-  <div class="daynav-inner" id="daynav"></div>
+  <div class="daynav-inner" id="daynav">
+    <button class="daytoggle" id="onlyToday" type="button" aria-pressed="false"><span class="led"></span>오늘만</button>
+  </div>
 </nav>
 
 <div class="wrap">
   <div class="stay" id="stay"></div>
-
   <main>
+    <div class="banner hidden" id="todayBanner"></div>
     <div class="legend">
       숙소만 영춘면 산속(시내에서 차로 약 40분)이라, <b>시내 나갈 때 활동·식사·카페를 한 번에</b> 묶는 게 편합니다.
       각 장소의 <b style="color:var(--river)">네이버지도</b>·<b style="color:#9a7b1f">카카오맵</b> 버튼을 누르면 길찾기로 바로 연결돼요.
     </div>
     <div class="trail" id="trail"></div>
   </main>
-
   <footer>
     <div class="tips">
       <h3>챙길 것 · 팁</h3>
@@ -174,15 +173,14 @@
 <script>
 function naver(q){ return "https://map.naver.com/p/search/" + encodeURIComponent(q); }
 function kakao(q){ return "https://map.kakao.com/?q=" + encodeURIComponent(q); }
+function localISO(d){ var z=new Date(d.getTime()-d.getTimezoneOffset()*60000); return z.toISOString().slice(0,10); }
 
-var stay = {
-  name:"소백산자연휴양림", query:"소백산자연휴양림",
+var stay = { name:"소백산자연휴양림", query:"소백산자연휴양림",
   addr:"충북 단양군 영춘면 하리방터길 180 · ☎ 043-423-3117",
-  info:"입실 15:00 / 퇴실 11:00 · 성수 11시 출발 · 6/19 소백산 10시 출발"
-};
+  info:"입실 15:00 / 퇴실 11:00 · 성수 11시 출발 · 6/19 소백산 10시 출발" };
 
 var days = [
-  { num:"Day 1", date:"6/17 (수)", title:"도착 & 강변 산책", blocks:[
+  { num:"Day 1", date:"6/17 (수)", iso:"2026-06-17", title:"도착 & 강변 산책", blocks:[
     { tag:"act", label:"활동", picks:[
       { name:"단양강 잔도", q:"단양강 잔도", note:"강변 절벽을 따라 난 평지 데크길(약 1.1km). 무리 없는 힐링 산책" } ]},
     { tag:"meal", label:"아점 · 택1", picks:[
@@ -197,7 +195,7 @@ var days = [
       { name:"해성한식", q:"단양 영춘 해성한식", note:"곤드레정식 · 휴양림 근처(영춘) · 매일 10–21" },
       { name:"영남식당", q:"단양 영남식당", note:"마늘떡갈비 · 시내 · 8:30–20" } ]}
   ]},
-  { num:"Day 2", date:"6/18 (목)", title:"전통시장 나들이", blocks:[
+  { num:"Day 2", date:"6/18 (목)", iso:"2026-06-18", title:"전통시장 나들이", blocks:[
     { tag:"act", label:"활동", picks:[
       { name:"단양구경시장", q:"단양구경시장", note:"마늘순대 · 흑마늘 닭강정 · 만두 군것질하며 시장 구경 · 08–20" } ]},
     { tag:"meal", label:"아점 · 택1", picks:[
@@ -212,7 +210,7 @@ var days = [
       { name:"장다리식당", q:"단양 장다리식당", note:"마늘정식 한 상 · 10–21" },
       { name:"Bistro River", q:"단양 비스트로리버", note:"파스타 · 리조또(강뷰) · 분위기 전환 · 매일 10–22" } ]}
   ]},
-  { num:"Day 3", date:"6/19 (금)", title:"명승 보고 귀경", blocks:[
+  { num:"Day 3", date:"6/19 (금)", iso:"2026-06-19", title:"명승 보고 귀경", blocks:[
     { tag:"act", label:"활동", picks:[
       { name:"도담삼봉", q:"도담삼봉", note:"남한강 위 세 봉우리. 차에서 5분, 평지 · 사진 한 장" } ]},
     { tag:"meal", label:"아점 · 택1 (일찍 여는 곳)", picks:[
@@ -235,56 +233,85 @@ function mlinks(q){
     + '</div>';
 }
 
+var links=[], sections=[];
 (function(){
   document.getElementById('stay').innerHTML =
-    '<div><b>🏡 '+stay.name+'</b></div>'
-    + '<div class="row">'+stay.addr+'</div>'
-    + '<div class="row">'+stay.info+'</div>'
-    + mlinks(stay.query);
+    '<div><b>🏡 '+stay.name+'</b></div><div class="row">'+stay.addr+'</div><div class="row">'+stay.info+'</div>'+mlinks(stay.query);
 
-  var nav = document.getElementById('daynav');
-  var trail = document.getElementById('trail');
+  var nav=document.getElementById('daynav'), trail=document.getElementById('trail'), toggle=document.getElementById('onlyToday');
 
   days.forEach(function(d,i){
-    var id = 'day'+(i+1);
-    var a = document.createElement('a');
-    a.href = '#'+id; a.dataset.target = id;
-    a.innerHTML = d.num.replace('Day ','Day ') + ' <small>'+d.date.replace(/[()]/g,'')+'</small>';
-    nav.appendChild(a);
+    var id='day'+(i+1);
+    var a=document.createElement('a');
+    a.href='#'+id; a.dataset.target=id;
+    a.innerHTML=d.num+' <small>'+d.date.replace(/[()]/g,'')+'</small>';
+    nav.insertBefore(a, toggle);     // 토글은 항상 맨 뒤
+    links.push(a);
 
-    var el = document.createElement('section');
-    el.className = 'day'; el.id = id;
-    var html = '<div class="day-head">'
-      + '<div class="day-num">'+d.num+'</div>'
-      + '<div class="day-title">'+d.title+'</div>'
-      + '<div class="day-date">'+d.date+'</div></div>';
+    var el=document.createElement('section'); el.className='day'; el.id=id; el.dataset.iso=d.iso;
+    var html='<div class="day-head"><div class="day-num">'+d.num+'</div><div class="day-title">'+d.title+'</div><div class="day-date">'+d.date+'</div></div>';
     d.blocks.forEach(function(b){
-      html += '<div class="card"><div class="slot"><span class="tag '+b.tag+'">'
-        + (b.tag==='act'?'활동':b.tag==='cafe'?'카페':'식사')
-        + '</span><span class="slot-label">'+b.label+'</span></div><ul class="pick">';
+      html+='<div class="card"><div class="slot"><span class="tag '+b.tag+'">'
+        +(b.tag==='act'?'활동':b.tag==='cafe'?'카페':'식사')+'</span><span class="slot-label">'+b.label+'</span></div><ul class="pick">';
       b.picks.forEach(function(p){
-        html += '<li><div class="place-name">'+p.name+'</div>'
-          + '<div class="place-note">'+p.note+'</div>'
-          + (closures[p.name] ? '<span class="warn">⚠ '+closures[p.name]+'</span>' : '')
-          + mlinks(p.q) + '</li>';
+        html+='<li><div class="place-name">'+p.name+'</div><div class="place-note">'+p.note+'</div>'
+          +(closures[p.name]?'<span class="warn">⚠ '+closures[p.name]+'</span>':'')+mlinks(p.q)+'</li>';
       });
-      html += '</ul></div>';
+      html+='</ul></div>';
     });
-    el.innerHTML = html;
-    trail.appendChild(el);
+    el.innerHTML=html; trail.appendChild(el); sections.push(el);
   });
 
-  // 스크롤 위치에 따라 날짜 탭 활성화
-  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
-  var sections = links.map(function(a){ return document.getElementById(a.dataset.target); });
   function setActive(id){ links.forEach(function(a){ a.classList.toggle('active', a.dataset.target===id); }); }
   if('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting) setActive(e.target.id); });
-    }, { rootMargin:'-45% 0px -50% 0px', threshold:0 });
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) setActive(e.target.id); }); },
+      { rootMargin:'-45% 0px -50% 0px', threshold:0 });
     sections.forEach(function(s){ io.observe(s); });
   }
   setActive('day1');
+
+  /* ---- 오늘 일정만 보기 ---- */
+  var only=false, banner=document.getElementById('todayBanner');
+  function apply(){
+    if(!only){
+      sections.forEach(function(s){ s.classList.remove('hidden'); });
+      links.forEach(function(a){ a.classList.remove('hidden'); });
+      banner.classList.add('hidden');
+      toggle.classList.remove('on'); toggle.setAttribute('aria-pressed','false');
+      setActive('day1'); return;
+    }
+    var t=localISO(new Date()), idx=-1, i;
+    for(i=0;i<days.length;i++){ if(days[i].iso===t){ idx=i; break; } }
+    var msg='';
+    if(idx<0){
+      for(i=0;i<days.length;i++){ if(days[i].iso>=t){ idx=i; break; } }
+      if(idx<0) idx=days.length-1;
+      msg='오늘('+(t.slice(5).replace('-','/'))+')은 여행일이 아니에요. 가까운 날을 보여드릴게요.';
+    }
+    sections.forEach(function(s,j){ s.classList.toggle('hidden', j!==idx); });
+    links.forEach(function(a,j){ a.classList.toggle('hidden', j!==idx); });
+    if(msg){ banner.textContent=msg; banner.classList.remove('hidden'); } else { banner.classList.add('hidden'); }
+    toggle.classList.add('on'); toggle.setAttribute('aria-pressed','true');
+    setActive('day'+(idx+1));
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  toggle.addEventListener('click', function(){ only=!only; apply(); });
+
+  /* ---- 다크 모드 ---- */
+  var themeBtn=document.getElementById('theme'), root=document.documentElement, meta=document.querySelector('meta[name=theme-color]');
+  function setTheme(tm){
+    root.setAttribute('data-theme',tm);
+    themeBtn.textContent = tm==='dark' ? '☀️' : '🌙';
+    themeBtn.setAttribute('aria-label', tm==='dark' ? '라이트 모드로 전환' : '다크 모드로 전환');
+    if(meta) meta.content = tm==='dark' ? '#101713' : '#2f5d4a';
+    try{ localStorage.setItem('sbs-theme', tm); }catch(e){}
+  }
+  var saved=null; try{ saved=localStorage.getItem('sbs-theme'); }catch(e){}
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
+  setTheme(saved || (prefersDark ? 'dark' : 'light'));
+  themeBtn.addEventListener('click', function(){
+    setTheme(root.getAttribute('data-theme')==='dark' ? 'light' : 'dark');
+  });
 })();
 </script>
 </body>
