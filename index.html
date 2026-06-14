@@ -108,6 +108,15 @@
   a.mlink:focus-visible{outline:3px solid var(--river);outline-offset:2px}
   .stay-head a.mlink{min-height:var(--tap)}
 
+  .summary{margin:18px 0 4px}
+  .summary h2{font-size:1.02rem;font-weight:800;margin:0 0 10px;letter-spacing:-.01em}
+  .sum-wrap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:var(--paper)}
+  table.sum{width:100%;border-collapse:collapse;font-size:.88rem}
+  .sum td{padding:10px 12px;border-top:1px solid var(--hair);vertical-align:top;line-height:1.5}
+  .sum tr:first-child td{border-top:0}
+  .sum .grp td{background:var(--soft-bg);font-weight:800;color:var(--pine-deep);font-size:.86rem;border-top:1px solid var(--line)}
+  .sum .k{width:54px;color:var(--ink-soft);font-weight:800;white-space:nowrap}
+
   footer{margin-top:30px;text-align:center;font-size:.8rem;color:var(--ink-soft);line-height:1.7}
   footer .tips{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow);margin-bottom:16px}
   footer .tips h3{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);margin:0 0 9px}
@@ -149,6 +158,7 @@
 
 <div class="wrap">
   <div class="stay" id="stay"></div>
+  <section class="summary" id="summary"></section>
   <main>
     <div class="banner hidden" id="todayBanner"></div>
     <div class="legend">
@@ -232,6 +242,20 @@ var links=[], sections=[];
   document.getElementById('stay').innerHTML =
     '<div class="stay-head"><b>🏡 '+stay.name+'</b>'+mlink(stay.query)+'</div>'
     + '<div class="row">'+stay.addr+'</div><div class="row">'+stay.info+'</div>';
+
+  (function(){
+    var rows='';
+    days.forEach(function(d){
+      rows+='<tr class="grp"><td colspan="2">'+d.num+' · '+d.date+' · '+d.title+'</td></tr>';
+      d.blocks.forEach(function(b){
+        var k=b.label.split(' ')[0];
+        var names=b.picks.map(function(p){ return p.name; }).join(' / ');
+        rows+='<tr><td class="k">'+k+'</td><td>'+names+'</td></tr>';
+      });
+    });
+    document.getElementById('summary').innerHTML =
+      '<h2>한눈에 보기</h2><div class="sum-wrap"><table class="sum"><tbody>'+rows+'</tbody></table></div>';
+  })();
 
   var nav=document.getElementById('daynav'), trail=document.getElementById('trail'), toggle=document.getElementById('onlyToday');
 
