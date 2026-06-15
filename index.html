@@ -117,6 +117,34 @@
   .sum .grp td{background:var(--soft-bg);font-weight:800;color:var(--pine-deep);font-size:.86rem;border-top:1px solid var(--line)}
   .sum .k{width:54px;color:var(--ink-soft);font-weight:800;white-space:nowrap}
 
+  .perks{margin:32px 0 0}
+  .perks h2{font-size:1.15rem;font-weight:800;margin:0 0 4px;letter-spacing:-.01em}
+  .perks .lead{font-size:.88rem;color:var(--ink-soft);margin:0 0 14px;line-height:1.6}
+  .perk{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:15px 16px;margin:0 0 11px;box-shadow:var(--shadow)}
+  .perk h3{font-size:1rem;font-weight:800;margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .perk .badge{font-size:.72rem;font-weight:800;color:#fff;background:var(--pine);border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .perk.excl{border-style:dashed}
+  .perk.excl .badge{background:var(--maple)}
+  .perk p{margin:0;font-size:.9rem;color:var(--ink-soft);line-height:1.62}
+  .perk p .hl{color:var(--pine-deep);font-weight:800}
+  .perk.excl p .hl{color:var(--maple)}
+
+  details.script{margin:12px 0 0;border:1px solid var(--line);border-radius:14px;background:var(--soft-bg);overflow:hidden}
+  details.script > summary{cursor:pointer;list-style:none;padding:13px 15px;font-weight:800;font-size:.92rem;
+    display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--ink)}
+  details.script > summary::-webkit-details-marker{display:none}
+  details.script > summary::after{content:"＋";color:var(--ink-soft);font-weight:800;font-size:1.05rem}
+  details.script[open] > summary::after{content:"－"}
+  .script-body{padding:0 15px 15px}
+  a.tel{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-weight:800;font-size:.9rem;
+    color:var(--ink);background:var(--btn-bg);border:1px solid var(--line);border-radius:10px;padding:9px 13px;min-height:42px;margin:2px 0 10px}
+  a.tel:active{transform:scale(.98)} a.tel:focus-visible{outline:3px solid var(--river);outline-offset:2px}
+  .say{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:.9rem;line-height:1.6;color:var(--ink)}
+  .script-body ol{margin:9px 0 0;padding-left:20px}
+  .script-body li{margin:6px 0;font-size:.9rem;line-height:1.55;color:var(--ink)}
+  .memo{margin:11px 0 0;font-size:.84rem;color:var(--ink-soft);line-height:1.6}
+  .memo b{color:var(--pine-deep)}
+
   footer{margin-top:30px;text-align:center;font-size:.8rem;color:var(--ink-soft);line-height:1.7}
   footer .tips{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow);margin-bottom:16px}
   footer .tips h3{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);margin:0 0 9px}
@@ -167,6 +195,65 @@
     </div>
     <div class="trail" id="trail"></div>
   </main>
+
+  <section class="perks">
+    <h2>💳 상품권 · 혜택</h2>
+    <p class="lead">단양에서 실제로 챙길 수 있는 할인입니다. 예산 소진·시기에 따라 자주 바뀌니 출발 전 한 번 확인하세요.</p>
+
+    <div class="perk">
+      <h3>단양사랑상품권 <span class="badge">최대 15% 할인</span></h3>
+      <p>대형마트를 뺀 관내 소상공인 가맹점 전용 상품권. 충전(구매) 시 할인이 붙어 <span class="hl">9만 원 결제 → 10만 원 사용</span> 식입니다. 단양은 인구감소지역이라 할인율이 높은 편(비수도권 13%·인구감소지역 최대 15%), 월 한도 200만 원. <span class="hl">외지인도 모바일 앱으로 충전</span>해 식당·카페·시장에서 결제할 수 있어, 이 앱의 맛집·카페·구경시장에 그대로 쓰면 됩니다.</p>
+    </div>
+
+    <div class="perk">
+      <h3>주중 숙박 30% 페이백 <span class="badge">수·목 해당</span></h3>
+      <p>단양관광공사가 <span class="hl">2026년 연중 주중(평일) 숙박 고객에게 지역상품권 30% 페이백</span>을 안내 중. 이번 일정(6/17 수·6/18 목)은 주중이라 대상이 될 가능성이 큽니다. 단, 직영 시설 기준이라 <span class="hl">소백산자연휴양림 포함 여부는 예약처에 확인</span>이 필요합니다(아래 스크립트 참고).</p>
+    </div>
+
+    <div class="perk">
+      <h3>온누리상품권 <span class="badge">7% 할인</span></h3>
+      <p>전통시장·골목상권 전용. 2026년 평시 7%(명절 10%) 할인, 개인 월 한도 100만 원. <span class="hl">Day 2 단양구경시장</span>에서 쓰기 좋습니다.</p>
+    </div>
+
+    <div class="perk excl">
+      <h3>'반값여행'은 단양 제외 <span class="badge">참고</span></h3>
+      <p>여행비 50%를 돌려주는 '지역사랑 휴가지원(반값여행)'의 2026년 충북 대상지는 <span class="hl">제천뿐</span>이라 단양은 해당하지 않습니다. (제천 반값여행도 단양 주민은 인접지역으로 제외)</p>
+    </div>
+
+    <details class="script">
+      <summary>📞 문의 스크립트 ① — 휴양림 / 30% 페이백</summary>
+      <div class="script-body">
+        <a class="tel" href="tel:0434233117">📞 소백산자연휴양림 043-423-3117</a>
+        <div class="say">"안녕하세요. 6월 17일(수)~19일(금) 2박으로 소백산자연휴양림에 예약한 사람인데, 몇 가지 확인하려고 전화드렸어요."</div>
+        <ol>
+          <li>단양관광공사의 <b>'주중 숙박 지역상품권 30% 페이백'</b>이 소백산자연휴양림에도 적용되나요?</li>
+          <li>제 일정(6/17 수·6/18 목)이 주중 조건에 맞나요?</li>
+          <li>적용된다면 <b>신청 방법</b>은요? (현장 신청 / 예약 시 별도 신청)</li>
+          <li>페이백은 <b>어떤 상품권</b>으로 <b>언제</b> 지급되나요?</li>
+          <li>이미 한 예약도 <b>소급 적용</b>되나요? 결제 방식 조건이 따로 있나요?</li>
+          <li>받은 상품권은 <b>어디서 사용</b> 가능한가요? (관내 식당·카페·시장)</li>
+        </ol>
+        <p class="memo"><b>준비물</b>: 예약자 이름·예약번호, 숙박 동, 결제 수단</p>
+      </div>
+    </details>
+
+    <details class="script">
+      <summary>📞 문의 스크립트 ② — 단양사랑상품권</summary>
+      <div class="script-body">
+        <div class="say">"안녕하세요. 외지에서 단양으로 여행 가는데, 단양사랑상품권에 대해 문의드려요." (단양군청 지역경제 담당 또는 운영 앱 고객센터)</div>
+        <ol>
+          <li><b>외지인(타지역 거주자)도</b> 구매·사용 가능한가요?</li>
+          <li>현재 <b>할인율</b>은 몇 %이고, <b>1인 월 구매한도</b>는요?</li>
+          <li><b>모바일 앱</b>으로 충전·결제되나요? 앱 이름은요? (지류/카드형도 있는지)</li>
+          <li><b>식당·카페·전통시장</b>에서 쓸 수 있나요? 가맹점 확인 방법은요?</li>
+          <li>남으면 <b>환불·잔액</b> 처리는 어떻게 되나요?</li>
+          <li>(해당 시) 여행객 대상 <b>추가 할인·이벤트</b>가 지금 진행 중인가요?</li>
+        </ol>
+        <p class="memo"><b>팁</b>: 상품권은 "어떤 상품권으로 · 언제 · 어디서 쓰는지" 세 가지만 확실히 확인하면 됩니다.</p>
+      </div>
+    </details>
+  </section>
+
   <footer>
     <div class="tips">
       <h3>챙길 것 · 팁</h3>
