@@ -65,6 +65,10 @@
   .daytoggle.on{background:var(--river);border-color:var(--river);color:#fff}
   .daytoggle.on .led{background:#fff}
   .daytoggle:focus-visible{outline:3px solid var(--river);outline-offset:2px}
+  .navperk{flex:0 0 auto;min-width:max-content;text-decoration:none;font-size:.84rem;font-weight:800;
+    color:var(--pine-deep);background:var(--paper);border:1px solid var(--pine);border-radius:12px;padding:9px 13px;
+    min-height:42px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:transform .08s}
+  .navperk:active{transform:scale(.98)} .navperk:focus-visible{outline:3px solid var(--river);outline-offset:2px}
 
   .stay{margin:18px 0 4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow)}
   .stay-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -100,6 +104,8 @@
   .place-note{font-size:.9rem;color:var(--ink-soft);margin-top:4px;line-height:1.6}
   .warn{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--maple);
     background:rgba(168,71,31,.09);border:1px solid rgba(168,71,31,.28);border-radius:9px;padding:4px 10px}
+  .pay-chip{display:inline-block;margin-top:8px;margin-right:6px;font-size:.76rem;font-weight:800;color:var(--pine-deep);
+    background:rgba(47,93,74,.10);border:1px solid rgba(47,93,74,.30);border-radius:9px;padding:3px 9px}
   a.mlink{flex:0 0 auto;text-decoration:none;font-size:.82rem;font-weight:800;min-height:40px;padding:7px 13px;
     border-radius:10px;border:1px solid var(--line);background:var(--btn-bg);color:var(--ink);
     display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:transform .08s,background .15s}
@@ -117,7 +123,7 @@
   .sum .grp td{background:var(--soft-bg);font-weight:800;color:var(--pine-deep);font-size:.86rem;border-top:1px solid var(--line)}
   .sum .k{width:54px;color:var(--ink-soft);font-weight:800;white-space:nowrap}
 
-  .perks{margin:32px 0 0}
+  .perks{margin:32px 0 0;scroll-margin-top:70px}
   .perks h2{font-size:1.15rem;font-weight:800;margin:0 0 4px;letter-spacing:-.01em}
   .perks .lead{font-size:.88rem;color:var(--ink-soft);margin:0 0 14px;line-height:1.6}
   .perk{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:15px 16px;margin:0 0 11px;box-shadow:var(--shadow)}
@@ -180,6 +186,7 @@
 
 <nav class="daynav" aria-label="날짜 바로가기">
   <div class="daynav-inner" id="daynav">
+    <a class="navperk" id="perksTab" href="#perks">💳 상품권</a>
     <button class="daytoggle" id="onlyToday" type="button" aria-pressed="false"><span class="led"></span>오늘만</button>
   </div>
 </nav>
@@ -192,11 +199,12 @@
     <div class="legend">
       숙소만 영춘면 산속(시내에서 차로 약 40분)이라, <b>시내 나갈 때 활동·식사·카페를 한 번에</b> 묶는 게 편합니다.
       장소 이름 옆 <b>네이버지도</b> 버튼을 누르면 길찾기로 바로 연결돼요.
+      식당·카페의 <b style="color:var(--pine)">💳</b> 표시는 해당 상품권 결제가 되는 업종이라는 뜻이며, 실제 가맹 여부는 매장에서 확인하세요.
     </div>
     <div class="trail" id="trail"></div>
   </main>
 
-  <section class="perks">
+  <section class="perks" id="perks">
     <h2>💳 상품권 · 혜택</h2>
     <p class="lead">단양에서 실제로 챙길 수 있는 할인입니다. 예산 소진·시기에 따라 자주 바뀌니 출발 전 한 번 확인하세요.</p>
 
@@ -344,14 +352,14 @@ var links=[], sections=[];
       '<h2>한눈에 보기</h2><div class="sum-wrap"><table class="sum"><tbody>'+rows+'</tbody></table></div>';
   })();
 
-  var nav=document.getElementById('daynav'), trail=document.getElementById('trail'), toggle=document.getElementById('onlyToday');
+  var nav=document.getElementById('daynav'), trail=document.getElementById('trail'), toggle=document.getElementById('onlyToday'), perksTab=document.getElementById('perksTab');
 
   days.forEach(function(d,i){
     var id='day'+(i+1);
     var a=document.createElement('a');
     a.href='#'+id; a.dataset.target=id;
     a.innerHTML=d.num+' <small>'+d.date.replace(/[()]/g,'')+'</small>';
-    nav.insertBefore(a, toggle);
+    nav.insertBefore(a, perksTab);
     links.push(a);
 
     var el=document.createElement('section'); el.className='day'; el.id=id; el.dataset.iso=d.iso;
@@ -360,8 +368,10 @@ var links=[], sections=[];
       html+='<div class="card"><div class="slot"><span class="tag '+b.tag+'">'
         +(b.tag==='act'?'활동':b.tag==='cafe'?'카페':'식사')+'</span><span class="slot-label">'+b.label+'</span></div><ul class="pick">';
       b.picks.forEach(function(p){
+        var pay=(b.tag==='meal'||b.tag==='cafe')?'단양사랑상품권':(p.name.indexOf('구경시장')>=0?'온누리·단양사랑상품권':'');
         html+='<li><div class="place-head"><span class="place-name">'+p.name+'</span>'+mlink(p.q)+'</div>'
           +'<div class="place-note">'+p.note+'</div>'
+          +(pay?'<span class="pay-chip">💳 '+pay+'</span>':'')
           +(closures[p.name]?'<span class="warn">⚠ '+closures[p.name]+'</span>':'')+'</li>';
       });
       html+='</ul></div>';
