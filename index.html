@@ -51,24 +51,23 @@
 
   nav.daynav{position:sticky;top:0;z-index:20;background:var(--nav-bg);
     -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .daynav-inner{max-width:620px;margin:0 auto;display:flex;gap:8px;padding:9px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .daynav a{flex:1 1 0;min-width:max-content;text-align:center;text-decoration:none;font-size:.84rem;font-weight:800;
-    color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:9px 10px;
-    min-height:42px;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s,color .15s,border-color .15s}
-  .daynav a small{font-weight:600;color:var(--ink-soft);opacity:.75}
-  .daynav a.active{background:var(--pine);color:#fff;border-color:var(--pine)}
-  .daynav a.active small{color:#dff0e7;opacity:1}
-  .daytoggle{flex:0 0 auto;border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);
-    border-radius:12px;padding:9px 13px;min-height:42px;font-size:.84rem;font-weight:800;cursor:pointer;
-    display:flex;align-items:center;gap:6px;white-space:nowrap}
-  .daytoggle .led{width:9px;height:9px;border-radius:50%;background:var(--line)}
-  .daytoggle.on{background:var(--river);border-color:var(--river);color:#fff}
-  .daytoggle.on .led{background:#fff}
-  .daytoggle:focus-visible{outline:3px solid var(--river);outline-offset:2px}
-  .navperk{flex:0 0 auto;min-width:max-content;text-decoration:none;font-size:.84rem;font-weight:800;
-    color:var(--pine-deep);background:var(--paper);border:1px solid var(--pine);border-radius:12px;padding:9px 13px;
-    min-height:42px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:transform .08s}
-  .navperk:active{transform:scale(.98)} .navperk:focus-visible{outline:3px solid var(--river);outline-offset:2px}
+  .daynav-inner{max-width:620px;margin:0 auto;display:flex;gap:6px;padding:8px 12px}
+  .daynav .tab{flex:1 1 0;min-width:0;min-height:48px;border:1px solid var(--line);background:var(--paper);
+    border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+    text-decoration:none;font-weight:800;line-height:1.12;padding:6px 3px;cursor:pointer;
+    transition:background .15s,color .15s,border-color .15s,transform .08s}
+  .daynav .tab:active{transform:scale(.97)}
+  .daynav .tab:focus-visible{outline:3px solid var(--river);outline-offset:2px}
+  .daynav a.tab{color:var(--ink-soft)}
+  .daynav a.tab .t{font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;color:var(--pine);font-weight:800}
+  .daynav a.tab .d{font-size:.82rem;font-weight:800;color:var(--ink)}
+  .daynav a.tab.active{background:var(--pine);border-color:var(--pine)}
+  .daynav a.tab.active .t{color:#dff0e7} .daynav a.tab.active .d{color:#fff}
+  .navperk.tab{color:var(--pine-deep);border-color:var(--pine)}
+  .navperk .ic{font-size:.95rem;line-height:1}
+  .navperk .lb{font-size:.7rem;font-weight:800}
+  .daytoggle.tab{color:var(--ink-soft);font-size:.78rem}
+  .daytoggle.tab.on{background:var(--river);border-color:var(--river);color:#fff}
 
   .stay{margin:18px 0 4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow)}
   .stay-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -154,6 +153,15 @@
   footer .tips h3{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);margin:0 0 9px}
   footer .tips ul{margin:0;padding-left:18px;font-size:.9rem;line-height:1.7} footer .tips li{margin:6px 0;color:var(--ink)}
 
+  .totop{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:30;
+    border:1px solid var(--line);background:var(--pine);color:#fff;font-weight:800;font-size:.86rem;
+    border-radius:999px;padding:11px 16px;min-height:46px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+    box-shadow:0 6px 18px rgba(0,0,0,.20);opacity:0;transform:translateY(10px);pointer-events:none;
+    transition:opacity .2s,transform .2s}
+  .totop.show{opacity:1;transform:none;pointer-events:auto}
+  .totop:active{transform:scale(.97)}
+  .totop:focus-visible{outline:3px solid var(--river);outline-offset:2px}
+
   @media (max-width:380px){ html{font-size:16px} h1{font-size:1.7rem} }
   @media (prefers-reduced-motion:no-preference){
     .day{opacity:0;transform:translateY(10px);animation:rise .5s ease forwards}
@@ -184,8 +192,8 @@
 
 <nav class="daynav" aria-label="날짜 바로가기">
   <div class="daynav-inner" id="daynav">
-    <a class="navperk" id="perksTab" href="#perks">💳 상품권</a>
-    <button class="daytoggle" id="onlyToday" type="button" aria-pressed="false"><span class="led"></span>오늘만</button>
+    <a class="navperk tab" id="perksTab" href="#perks"><span class="ic">💳</span><span class="lb">상품권</span></a>
+    <button class="daytoggle tab" id="onlyToday" type="button" aria-pressed="false">오늘만</button>
   </div>
 </nav>
 
@@ -273,6 +281,8 @@
   </footer>
 </div>
 
+<button id="toTop" class="totop" type="button" aria-label="맨 위로">↑ Home</button>
+
 <script>
 function naver(q){ return "https://map.naver.com/p/search/" + encodeURIComponent(q); }
 function localISO(d){ var z=new Date(d.getTime()-d.getTimezoneOffset()*60000); return z.toISOString().slice(0,10); }
@@ -354,8 +364,8 @@ var links=[], sections=[];
   days.forEach(function(d,i){
     var id='day'+(i+1);
     var a=document.createElement('a');
-    a.href='#'+id; a.dataset.target=id;
-    a.innerHTML=d.num+' <small>'+d.date.replace(/[()]/g,'')+'</small>';
+    a.href='#'+id; a.dataset.target=id; a.className='tab';
+    a.innerHTML='<span class="t">'+d.num+'</span><span class="d">'+d.date.split(' ')[0]+'</span>';
     nav.insertBefore(a, perksTab);
     links.push(a);
 
@@ -420,6 +430,13 @@ var links=[], sections=[];
   var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
   setTheme(saved || (prefersDark ? 'dark' : 'light'));
   themeBtn.addEventListener('click', function(){ setTheme(root.getAttribute('data-theme')==='dark' ? 'light' : 'dark'); });
+
+  var toTop=document.getElementById('toTop');
+  if(toTop){
+    var onScroll=function(){ if(window.scrollY>340){ toTop.classList.add('show'); } else { toTop.classList.remove('show'); } };
+    window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+    toTop.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+  }
 })();
 </script>
 </body>
