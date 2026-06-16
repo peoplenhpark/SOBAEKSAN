@@ -69,6 +69,18 @@
   .daytoggle.tab{color:var(--ink-soft);font-size:.78rem}
   .daytoggle.tab.on{background:var(--river);border-color:var(--river);color:#fff}
 
+  .weather{margin:18px 0 0}
+  .weather h2{font-size:1.05rem;font-weight:800;margin:0 0 10px;letter-spacing:-.01em}
+  .wx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .wx{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 6px;text-align:center;box-shadow:var(--shadow)}
+  .wx .wd{font-size:.72rem;font-weight:800;color:var(--pine)}
+  .wx .ic{font-size:1.6rem;line-height:1;margin:6px 0 3px}
+  .wx .lbl{font-size:.7rem;color:var(--ink-soft)}
+  .wx .tmp{font-size:.92rem;font-weight:800;margin-top:4px}
+  .wx .tmp .lo{color:var(--ink-soft);font-weight:700}
+  .wx .pop{font-size:.72rem;color:var(--river);font-weight:800;margin-top:3px}
+  .wx-note{font-size:.78rem;color:var(--ink-soft);margin:9px 2px 0;line-height:1.5}
+
   .stay{margin:18px 0 4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow)}
   .stay-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .stay-head b{color:var(--pine-deep);font-size:1.08rem} .stay .row{font-size:.88rem;color:var(--ink-soft);margin-top:4px}
@@ -198,6 +210,7 @@
 </nav>
 
 <div class="wrap">
+  <section class="weather" id="weather"></section>
   <div class="stay" id="stay"></div>
   <section class="summary" id="summary"></section>
   <main>
@@ -344,6 +357,44 @@ var links=[], sections=[];
   document.getElementById('stay').innerHTML =
     '<div class="stay-head"><b>🏡 '+stay.name+'</b>'+mlink(stay.query)+'</div>'
     + '<div class="row">'+stay.addr+'</div><div class="row">'+stay.info+'</div>';
+
+  (function(){
+    var box=document.getElementById('weather');
+    box.innerHTML='<h2>🌤️ 여행 기간 날씨</h2><p class="wx-note">예보 불러오는 중…</p>';
+    function wx(c){
+      if(c===0) return ['☀️','맑음'];
+      if(c===1||c===2) return ['🌤️','구름 조금'];
+      if(c===3) return ['☁️','흐림'];
+      if(c===45||c===48) return ['🌫️','안개'];
+      if(c>=51&&c<=57) return ['🌦️','이슬비'];
+      if(c>=61&&c<=67) return ['🌧️','비'];
+      if(c>=71&&c<=77) return ['🌨️','눈'];
+      if(c>=80&&c<=82) return ['🌦️','소나기'];
+      if(c>=95) return ['⛈️','뇌우'];
+      return ['🌡️','—'];
+    }
+    var labels=['6/17 (수)','6/18 (목)','6/19 (금)'];
+    var url='https://api.open-meteo.com/v1/forecast?latitude=37.061&longitude=128.467'
+      +'&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max'
+      +'&timezone=Asia%2FSeoul&start_date=2026-06-17&end_date=2026-06-19';
+    fetch(url).then(function(r){return r.json();}).then(function(j){
+      var d=j.daily; if(!d||!d.time||!d.time.length) throw 0;
+      var cells='';
+      d.time.forEach(function(t,i){
+        var info=wx(d.weather_code[i]);
+        var hi=Math.round(d.temperature_2m_max[i]), lo=Math.round(d.temperature_2m_min[i]);
+        var pop=d.precipitation_probability_max[i];
+        cells+='<div class="wx"><div class="wd">'+(labels[i]||t)+'</div>'
+          +'<div class="ic">'+info[0]+'</div><div class="lbl">'+info[1]+'</div>'
+          +'<div class="tmp">'+hi+'° <span class="lo">/ '+lo+'°</span></div>'
+          +'<div class="pop">💧 '+(pop==null?'-':pop+'%')+'</div></div>';
+      });
+      box.innerHTML='<h2>🌤️ 여행 기간 날씨</h2><div class="wx-grid">'+cells+'</div>'
+        +'<p class="wx-note">실시간 예보(Open-Meteo) · 해발 약 480m 산속이라 시내보다 서늘하고 일교차가 큽니다.</p>';
+    }).catch(function(){
+      box.innerHTML='<h2>🌤️ 여행 기간 날씨</h2><p class="wx-note">예보를 불러오지 못했어요. 출발 전 기상예보를 확인하세요. (6월 중순 장마 초입 가능)</p>';
+    });
+  })();
 
   (function(){
     var rows='';
