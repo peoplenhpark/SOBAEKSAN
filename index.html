@@ -389,6 +389,13 @@ var links=[], sections=[];
       if(c>=95) return ['⛈️','뇌우'];
       return ['🌡️','—'];
     }
+    function icon(code, prob){
+      if(code!=null && code<=3 && prob!=null){
+        if(prob>=60) return ['🌧️','비 가능'];
+        if(prob>=40) return ['🌦️','소나기 가능'];
+      }
+      return wx(code);
+    }
     var labels=['6/17 (수)','6/18 (목)','6/19 (금)'];
     var dates=['2026-06-17','2026-06-18','2026-06-19'];
     var url='https://api.open-meteo.com/v1/forecast?latitude=37.061&longitude=128.467'
@@ -396,13 +403,31 @@ var links=[], sections=[];
       +'&hourly=temperature_2m,precipitation_probability,weather_code,relative_humidity_2m,wind_speed_10m'
       +'&timezone=Asia%2FSeoul&start_date=2026-06-17&end_date=2026-06-19';
     var D=null, H=null, sel=-1;
+    function daytime(i){
+      var arr=[];
+      if(H&&H.time){ for(var k=0;k<H.time.length;k++){ if(H.time[k].slice(0,10)===dates[i]){ var hh=parseInt(H.time[k].slice(11,13),10); if(hh>=8&&hh<=20) arr.push(k); } } }
+      return arr;
+    }
+    function agg(i){
+      var idx=daytime(i), maxP=0, hasP=false, worst=-1, hsum=0, hn=0;
+      idx.forEach(function(k){
+        var p=H.precipitation_probability[k]; if(p!=null){ hasP=true; if(p>maxP) maxP=p; }
+        var c=H.weather_code[k]; if(c!=null&&c>worst) worst=c;
+        var rh=H.relative_humidity_2m[k]; if(rh!=null){ hsum+=rh; hn++; }
+      });
+      return { prob: hasP?Math.round(maxP):D.precipitation_probability_max[i],
+               code: worst>=0?worst:D.weather_code[i],
+               hum: hn?Math.round(hsum/hn):null };
+    }
     function detail(i){
-      var info=wx(D.weather_code[i]);
+      var a=agg(i), info=icon(a.code, a.prob);
       var mets=''
-        +'<div class="met"><span class="k">날씨</span><span class="v">'+info[0]+' '+info[1]+'</span></div>'
+        +'<div class="met"><span class="k">날씨(낮)</span><span class="v">'+info[0]+' '+info[1]+'</span></div>'
         +'<div class="met"><span class="k">체감</span><span class="v">'+Math.round(D.apparent_temperature_max[i])+'° / '+Math.round(D.apparent_temperature_min[i])+'°</span></div>'
-        +'<div class="met"><span class="k">강수확률</span><span class="v">'+(D.precipitation_probability_max[i]==null?'-':D.precipitation_probability_max[i]+'%')+'</span></div>'
+        +'<div class="met"><span class="k">강수확률(낮)</span><span class="v">'+(a.prob==null?'-':a.prob+'%')+'</span></div>'
+        +'<div class="met"><span class="k">강수확률(하루최대)</span><span class="v">'+(D.precipitation_probability_max[i]==null?'-':D.precipitation_probability_max[i]+'%')+'</span></div>'
         +'<div class="met"><span class="k">강수량</span><span class="v">'+(D.precipitation_sum[i]==null?'-':D.precipitation_sum[i]+'mm')+'</span></div>'
+        +'<div class="met"><span class="k">습도(낮 평균)</span><span class="v">'+(a.hum==null?'-':a.hum+'%')+'</span></div>'
         +'<div class="met"><span class="k">바람</span><span class="v">'+Math.round(D.wind_speed_10m_max[i])+'km/h</span></div>'
         +'<div class="met"><span class="k">자외선</span><span class="v">'+(D.uv_index_max[i]==null?'-':Math.round(D.uv_index_max[i]))+'</span></div>'
         +'<div class="met"><span class="k">일출</span><span class="v">'+D.sunrise[i].slice(11,16)+'</span></div>'
@@ -413,7 +438,7 @@ var links=[], sections=[];
           if(H.time[k].slice(0,10)!==dates[i]) continue;
           var hh=parseInt(H.time[k].slice(11,13),10);
           if(hh%3!==0) continue;
-          var hi=wx(H.weather_code[k]);
+          var hi=icon(H.weather_code[k], H.precipitation_probability[k]);
           hrs+='<div class="hr"><div class="t">'+hh+'시</div><div class="i">'+hi[0]+'</div>'
             +'<div class="tp">'+Math.round(H.temperature_2m[k])+'°</div>'
             +'<div class="p">💧'+(H.precipitation_probability[k]==null?'-':H.precipitation_probability[k]+'%')+'</div></div>';
@@ -425,19 +450,18 @@ var links=[], sections=[];
     function render(){
       var cells='';
       D.time.forEach(function(t,i){
-        var info=wx(D.weather_code[i]);
+        var a=agg(i), info=icon(a.code, a.prob);
         var hi=Math.round(D.temperature_2m_max[i]), lo=Math.round(D.temperature_2m_min[i]);
-        var pop=D.precipitation_probability_max[i];
         cells+='<div class="wx'+(sel===i?' sel':'')+'" role="button" tabindex="0" data-i="'+i+'">'
           +'<div class="wd">'+(labels[i]||t)+'</div>'
           +'<div class="ic">'+info[0]+'</div><div class="lbl">'+info[1]+'</div>'
           +'<div class="tmp">'+hi+'° <span class="lo">/ '+lo+'°</span></div>'
-          +'<div class="pop">💧 '+(pop==null?'-':pop+'%')+'</div>'
+          +'<div class="pop">강수 '+(a.prob==null?'-':a.prob+'%')+'</div>'
           +'<div class="more">'+(sel===i?'▲ 닫기':'▼ 상세')+'</div></div>';
       });
       box.innerHTML='<h2>🌤️ 여행 기간 날씨</h2><div class="wx-grid">'+cells+'</div>'
         +(sel>=0?detail(sel):'')
-        +'<p class="wx-note">날짜를 누르면 시간대별 상세가 열려요 · 실시간(Open-Meteo) · 해발 약 480m 산속이라 일교차가 큽니다.</p>';
+        +'<p class="wx-note">강수확률은 낮(08–20시) 기준 · 날짜를 누르면 시간대별 상세가 열려요 · 실시간(Open-Meteo) · 해발 약 480m 산속이라 일교차가 큽니다.</p>';
       Array.prototype.forEach.call(box.querySelectorAll('.wx'), function(el){
         function toggle(){ var i=parseInt(el.dataset.i,10); sel=(sel===i?-1:i); render(); }
         el.addEventListener('click', toggle);
