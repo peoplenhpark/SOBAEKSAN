@@ -72,17 +72,14 @@
   .weather{margin:18px 0 0}
   .weather h2{font-size:1.05rem;font-weight:800;margin:0 0 10px;letter-spacing:-.01em}
   .wx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .wx{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 6px;text-align:center;box-shadow:var(--shadow);cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .08s}
+  .wx{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:9px 6px;text-align:center;box-shadow:var(--shadow);cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .08s}
   .wx:active{transform:scale(.98)}
   .wx:focus-visible{outline:3px solid var(--river);outline-offset:2px}
   .wx.sel{border-color:var(--pine);box-shadow:0 0 0 2px rgba(47,93,74,.25)}
-  .wx .more{font-size:.62rem;color:var(--ink-soft);font-weight:700;margin-top:5px}
-  .wx .wd{font-size:.72rem;font-weight:800;color:var(--pine)}
-  .wx .ic{font-size:1.6rem;line-height:1;margin:6px 0 3px}
-  .wx .lbl{font-size:.7rem;color:var(--ink-soft)}
-  .wx .tmp{font-size:.92rem;font-weight:800;margin-top:4px}
+  .wx .wd{font-size:.74rem;font-weight:800;color:var(--pine)}
+  .wx .tmp{font-size:.95rem;font-weight:800;margin-top:3px}
   .wx .tmp .lo{color:var(--ink-soft);font-weight:700}
-  .wx .pop{font-size:.72rem;color:var(--river);font-weight:800;margin-top:3px}
+  .wx .more{font-size:.62rem;color:var(--ink-soft);font-weight:700;margin-top:4px}
   .wx-note{font-size:.78rem;color:var(--ink-soft);margin:9px 2px 0;line-height:1.5}
   .wxd{margin-top:10px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
   .wxd h3{font-size:.92rem;font-weight:800;margin:0 0 11px;display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -450,13 +447,10 @@ var links=[], sections=[];
     function render(){
       var cells='';
       D.time.forEach(function(t,i){
-        var a=agg(i), info=icon(a.code, a.prob);
         var hi=Math.round(D.temperature_2m_max[i]), lo=Math.round(D.temperature_2m_min[i]);
         cells+='<div class="wx'+(sel===i?' sel':'')+'" role="button" tabindex="0" data-i="'+i+'">'
           +'<div class="wd">'+(labels[i]||t)+'</div>'
-          +'<div class="ic">'+info[0]+'</div><div class="lbl">'+info[1]+'</div>'
           +'<div class="tmp">'+hi+'° <span class="lo">/ '+lo+'°</span></div>'
-          +'<div class="pop">강수 '+(a.prob==null?'-':a.prob+'%')+'</div>'
           +'<div class="more">'+(sel===i?'▲ 닫기':'▼ 상세')+'</div></div>';
       });
       box.innerHTML='<h2>🌤️ 여행 기간 날씨</h2><div class="wx-grid">'+cells+'</div>'
